@@ -88,6 +88,25 @@ AUTH_USER_MODEL = 'api.User'
 
 ################################################################################
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'api.views.oauth_views': {  # Replace 'your_app_name' with the actual name of your app
+            'handlers': ['console'],
+            'level': 'ERROR',  # Or 'DEBUG' for more verbose logging
+            'propagate': True,
+        },
+    },
+}
+
+################################################################################
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [

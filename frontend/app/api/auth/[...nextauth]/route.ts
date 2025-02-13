@@ -22,7 +22,7 @@ const handler = NextAuth({
       if (account) {
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/social/google/`, // Your Django endpoint
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/google/`, // Your Django endpoint
             {
               method: "POST",
               headers: {
