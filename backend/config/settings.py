@@ -9,7 +9,7 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+DEBUG = True                # Change to False in production
 
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-ee!c30j7$z!u0won*+i%g4l@cpwuuw8qd&r^e2lb=iyl&jr4-t')
