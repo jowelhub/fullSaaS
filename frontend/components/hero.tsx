@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button"
 
 export default function Hero() {
   return (
-    <section className="w-full py-20 md:py-32">
+    <section className="w-full py-10 md:py-12">
       <div className="container flex flex-col items-center text-center">
-        <div className="inline-flex items-center rounded-full bg-[#DCFCE7] px-3 py-1 text-sm text-[#10B981] mb-8">
+        <div className="inline-flex items-center rounded-full bg-[#DCFCE7] px-3 py-1 text-sm text-[#10B981] mb-4">
           Launch faster
         </div>
         <h1 className="max-w-4xl text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
