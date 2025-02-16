@@ -18,8 +18,6 @@ STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET')
 
-DOMAIN = os.environ.get('DOMAIN', 'http://localhost:8000')
-
 ################################################################################
 
 # Application definition
@@ -82,7 +80,7 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost',]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost',] 
 
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000','https://www.example.com',]
 

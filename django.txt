@@ -1,0 +1,8 @@
+IDEA:
+
+crear 3 templates:
+
+- uno para ítems/microservicios. la idea es que cada item tenga /1/rutas_custom…, /2/rutas_custom… (importan los ítems, importa diferenciar)
+- uno para planes one payment (basic, pro, premium). la idea es que no importa ya las rutas. los planes es algo interno para ver si el user lo tiene o no. [HasPlan]
+- uno para planes suscripción.
+
