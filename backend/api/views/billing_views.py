@@ -16,19 +16,6 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 logger = logging.getLogger(__name__)
 
-class PlanListView(APIView):
-    """
-    List all predefined plans.
-    """
-    permission_classes = [AllowAny]
-
-    def get(self, request):
-        from ..serializers import PlanSerializer
-        plans = Plan.objects.all()
-        serializer = PlanSerializer(plans, many=True)
-        logger.info("Fetched all plans.")
-        return Response(serializer.data)
-
 class CreateCheckoutSessionView(APIView):
     """
     Create a Stripe Checkout Session for the authenticated user.

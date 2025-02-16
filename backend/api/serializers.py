@@ -18,7 +18,7 @@ class PlanSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Plan
-        fields = ("id", "name", "description", "features", "stripe_product_id", "prices")
+        fields = ("id", "name", "stripe_product_id", "prices")
 
 class UserSubscriptionSerializer(serializers.ModelSerializer):
     plan = PlanSerializer(read_only=True)

@@ -26,8 +26,6 @@ BILLING_INTERVAL_CHOICES = (
 
 class Plan(models.Model):
     name = models.CharField(max_length=20, choices=PLAN_CHOICES, unique=True)
-    description = models.TextField(blank=True, null=False)
-    features = models.TextField(blank=True, null=False)
     stripe_product_id = models.CharField(max_length=100, blank=True, null=True)
 
 class Price(models.Model):

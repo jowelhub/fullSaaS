@@ -1,5 +1,6 @@
 import { Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 const plans = [
   {
@@ -64,11 +65,12 @@ export default function Pricing() {
                 ))}
               </ul>
               <Button
+                asChild
                 className={`w-full ${
                   plan.popular ? "bg-[#10B981] hover:bg-[#10B981]/90" : "bg-gray-900 hover:bg-gray-800"
                 }`}
               >
-                Get Started
+                <Link href="/signup">Get Started</Link>
               </Button>
             </div>
           ))}
