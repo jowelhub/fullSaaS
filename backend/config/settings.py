@@ -18,7 +18,7 @@ STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET')
 
-DOMAIN = os.environ.get('DOMAIN', 'http://localhost:8000')
+FRONTEND_URL = os.getenv("FRONTEND_URL", 'http://localhost:8000')
 
 ################################################################################
 

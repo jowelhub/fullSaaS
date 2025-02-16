@@ -16,6 +16,35 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 logger = logging.getLogger(__name__)
 
+class VerifyCheckoutSessionView(APIView):
+    """
+    Verify the Stripe Checkout Session ID.
+    """
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            data = json.loads(request.body)
+            session_id = data.get("session_id")
+            if not session_id:
+                logger.error("Session ID is required.")
+                return Response({"isValid": False}, status=400)
+
+            session = stripe.checkout.Session.retrieve(session_id)
+            if session and session["payment_status"] == "paid":
+                logger.info(f"Payment verified successfully for session ID: {session_id}")
+                return Response({"isValid": True})
+            else:
+                logger.warning(f"Payment not verified for session ID: {session_id}")
+                return Response({"isValid": False}, status=400)
+        except stripe.error.InvalidRequestError as e:
+            logger.error(f"Invalid request error: {e}")
+            return Response({"isValid": False}, status=400)
+        except Exception as e:
+            logger.error(f"An error occurred: {e}")
+            logger.error(traceback.format_exc())
+            return Response({"isValid": False}, status=500)
+
 class CreateCheckoutSessionView(APIView):
     """
     Create a Stripe Checkout Session for the authenticated user.
@@ -32,7 +61,7 @@ class CreateCheckoutSessionView(APIView):
             logger.error(f"Price with id {price_id} not found.")
             return Response({"error": "Price not found."}, status=404)
 
-        domain_url = request.build_absolute_uri("/")[:-1]
+        domain_url = settings.FRONTEND_URL
         try:
             checkout_session = stripe.checkout.Session.create(
                 customer_email=request.user.email,  # Use user's email as customer ID
@@ -42,8 +71,8 @@ class CreateCheckoutSessionView(APIView):
                     "quantity": 1,
                 }],
                 mode="subscription",
-                success_url=domain_url + "/success/?session_id={CHECKOUT_SESSION_ID}",
-                cancel_url=domain_url + "/cancel/",
+                success_url=domain_url + "/checkout/success/?session_id={CHECKOUT_SESSION_ID}",
+                cancel_url=domain_url + "/checkout/cancel/",
                 client_reference_id=str(request.user.id),  # Reference to the user ID
                 metadata={
                     "user_id": request.user.id,

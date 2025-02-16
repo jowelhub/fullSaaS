@@ -40,6 +40,14 @@ export default function DashboardLayout({
               Dashboard
             </Link>
             <Link
+              href="/pricing"
+              className={`text-base ${
+                pathname === "/pricing" ? "text-[#10B981]" : "text-gray-600 hover:text-[#10B981]"
+              }`}
+            >
+              Pricing
+            </Link>
+            <Link
               href="/settings"
               className={`text-base ${
                 pathname === "/settings" ? "text-[#10B981]" : "text-gray-600 hover:text-[#10B981]"

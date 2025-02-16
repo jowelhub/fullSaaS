@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest) {
   const isAuthenticated = !!token
 
   // Protect these routes
-  const protectedRoutes = ["/dashboard", "/settings"]
+  const protectedRoutes = ["/dashboard", "/settings", "/pricing"]
   const isProtectedRoute = protectedRoutes.some((route) => request.nextUrl.pathname.startsWith(route))
 
   if (isProtectedRoute && !isAuthenticated) {
@@ -28,5 +28,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/settings/:path*", "/login", "/signup"],
+  matcher: ["/dashboard/:path*", "/settings/:path*", "/pricing", "/login", "/signup"],
 }
