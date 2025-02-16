@@ -1,0 +1,9 @@
+Django
+djangorestframework
+djangorestframework-simplejwt
+drf-yasg
+stripe
+google-auth
+google-auth-oauthlib
+python-dotenv
+django-cors-headers
