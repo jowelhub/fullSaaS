@@ -5,10 +5,13 @@ import { Button } from "@/components/ui/button"
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll"
 import { useState } from "react";
 import { Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function Navigation() {
   useSmoothScroll()
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isLandingPage = pathname === "/";
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -21,15 +24,15 @@ export default function Navigation() {
           SaaSFlow
         </Link>
         <div className="hidden space-x-8 md:flex">
-          <a href="#features" className="text-base text-gray-600 hover:text-[#10B981]">
+          <Link href={isLandingPage ? "#features" : "/#features"} className="text-base text-gray-600 hover:text-[#10B981]">
             Features
-          </a>
-          <a href="#pricing" className="text-base text-gray-600 hover:text-[#10B981]">
+          </Link>
+          <Link href={isLandingPage ? "#pricing" : "/#pricing"} className="text-base text-gray-600 hover:text-[#10B981]">
             Pricing
-          </a>
-          <a href="#faq" className="text-base text-gray-600 hover:text-[#10B981]">
+          </Link>
+          <Link href={isLandingPage ? "#faq" : "/#faq"} className="text-base text-gray-600 hover:text-[#10B981]">
             FAQ
-          </a>
+          </Link>
         </div>
         <div className="flex items-center space-x-4">
           <Button variant="ghost" className="text-gray-600 hover:text-[#10B981] hidden md:inline-flex" asChild>
@@ -45,13 +48,13 @@ export default function Navigation() {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden absolute top-16 right-0 bg-white shadow-md rounded-md p-4 w-48">
-          <Link href="#features" className="block py-2 text-gray-600 hover:text-[#10B981]" onClick={toggleMenu}>
+          <Link href={isLandingPage ? "#features" : "/#features"} className="block py-2 text-gray-600 hover:text-[#10B981]" onClick={toggleMenu}>
             Features
           </Link>
-          <Link href="#pricing" className="block py-2 text-gray-600 hover:text-[#10B981]" onClick={toggleMenu}>
+          <Link href={isLandingPage ? "#pricing" : "/#pricing"} className="block py-2 text-gray-600 hover:text-[#10B981]" onClick={toggleMenu}>
             Pricing
           </Link>
-          <Link href="#faq" className="block py-2 text-gray-600 hover:text-[#10B981]" onClick={toggleMenu}>
+          <Link href={isLandingPage ? "#faq" : "/#faq"} className="block py-2 text-gray-600 hover:text-[#10B981]" onClick={toggleMenu}>
             FAQ
           </Link>
           <Link href="/login" className="block py-2 text-gray-600 hover:text-[#10B981]" onClick={toggleMenu}>
