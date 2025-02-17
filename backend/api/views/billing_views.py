@@ -220,20 +220,3 @@ class StripeWebhookView(View):
                 logger.error(traceback.format_exc())  # Log the full traceback
 
         return HttpResponse(status=200)
-
-class SubscriptionDetailView(APIView):
-    """
-    Return the authenticated user's subscription details.
-    """
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
-        from ..serializers import UserSubscriptionSerializer
-        try:
-            subscription = request.user.subscription
-            logger.info(f"Fetched subscription details for user {request.user.email}")
-        except UserSubscription.DoesNotExist:
-            logger.error(f"No active subscription found for user {request.user.email}")
-            return Response({"detail": "No active subscription."}, status=404)
-        serializer = UserSubscriptionSerializer(subscription)
-        return Response(serializer.data)

@@ -31,7 +31,45 @@ export default function PricingPage() {
   const handleBuyPlan = async () => {
     const priceId = "1"; // Hardcoded for now
 
-    // ... (rest of the handleBuyPlan function)
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/billing/checkout/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.accessToken}`,
+        },
+        body: JSON.stringify({ price_id: priceId }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error creating checkout session:", errorData);
+        // Handle error (e.g., display an error message)
+        return;
+      }
+
+      const data = await response.json();
+      const sessionId = data.sessionId;
+
+      // Redirect to Stripe Checkout
+      const stripePromise = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
+
+      if (stripePromise) {
+        const result = await stripePromise.redirectToCheckout({
+          sessionId: sessionId,
+        });
+
+        if (result.error) {
+          console.error("Stripe redirect error:", result.error.message);
+          // Handle redirect error (e.g., display an error message)
+        }
+      } else {
+        console.error("Stripe failed to load.");
+      }
+    } catch (error) {
+      console.error("Error during checkout:", error);
+      // Handle network or other errors
+    }
   };
 
   if (status === "loading") {
